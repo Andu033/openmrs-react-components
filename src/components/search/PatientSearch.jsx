@@ -41,6 +41,7 @@ class PatientSearch extends React.Component {
 
     return (
       <div>
+        <p>asdasda</p>
         <CardList
           AdditionalSearchFilters={this.props.AdditionalFilters}
           activeSearchType={this.props.activeSearchType}
@@ -52,7 +53,7 @@ class PatientSearch extends React.Component {
           handleSearchSubmit={this.handleSubmit}
           loading={this.props.isUpdating}
           noDataMessage="No patients to display"
-          onMountOtherActionCreators={[ ...actionCreators, ...this.props.onMountOtherActionCreators]}
+          onMountOtherActionCreators={[...actionCreators, ...this.props.onMountOtherActionCreators]}
           rowData={this.props.rowData}
           rowSelectedActionCreators={[patientActions.setSelectedPatient, patientActions.updatePatientInStore, ...this.props.rowSelectedActionCreators]}
           searchFilterFields={null}
@@ -84,7 +85,7 @@ PatientSearch.defaultProps = {
   loading: false,
   cacheSearchResults: false,
   onMountOtherActionCreators: [],
-  parseResults:(results) => {
+  parseResults: (results) => {
     // convert results to the patient domain object
     return results.map((result) => {
       return patientUtil.createFromRestRep(result);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import '../../../assets/css/Thumbnail'
+import '../../../assets/css/Thumbnail.css'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import thumbnailActions from '../../features/thumbnail/actions'
@@ -97,4 +97,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Thumbnail)
+export default connect(null, null)(Thumbnail)

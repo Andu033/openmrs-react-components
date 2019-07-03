@@ -3,7 +3,7 @@ import { sessionReducers } from './features/session';
 import { loginReducers } from './features/login';
 import { headerReducers } from './features/header';
 import { patientsReducer } from './features/patient';
-import { thumbnailReducer, getThumbnails } from './features/thumbnail'
+import { thumbnailReducers, getThumbnails } from './features/thumbnail'
 import { patientSearchReducers } from './features/search';
 import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';
@@ -11,7 +11,6 @@ import { systemReducers } from './features/system';
 import { conceptReducer } from "./features/concept/reducers";
 import { getPatients, getSelectedPatient, isUpdating, isError } from './features/patient';
 import { getConcept, getConcepts } from './features/concept';
-import { getThumbnails } from './features/thumbnail'
 import { locationsReducer, getLocations, getLocation } from './features/location';
 import { getSessionLocation, getCurrentProvider, getUser } from "./features/session";
 import { globalPropertyReducer } from './features/globalproperty/reducers';
@@ -20,13 +19,13 @@ import { patientIdentifierTypesReducer, getPatientIdentifierTypes, getPatientIde
 import { stat } from 'fs';
 
 export const reducers = combineReducers({
-  thumbnail: thumbnailReducer,
   session: sessionReducers,
   system: systemReducers,
   loginLocations: loginReducers,
   header: headerReducers,
   patients: patientsReducer,
   patientSearch: patientSearchReducers,
+  thumbnail: thumbnailReducers,
   errors: errorsReducers,
   form: formReducers,
   metadata: combineReducers({

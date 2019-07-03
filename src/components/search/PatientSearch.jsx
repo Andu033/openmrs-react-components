@@ -41,8 +41,7 @@ class PatientSearch extends React.Component {
       ];
 
     return (
-      <div>      <Thumbnail />
-
+      <div>
         <CardList
           AdditionalSearchFilters={this.props.AdditionalFilters}
           activeSearchType={this.props.activeSearchType}

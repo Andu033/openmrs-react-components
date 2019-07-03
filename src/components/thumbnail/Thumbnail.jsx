@@ -79,8 +79,8 @@ Thumbnail.PropTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { Thumbnails } = state.openmrs.Thumbnail
-  const thumbnail = Thumbnails.find(Element => {
+  const { thumbnails } = state.openmrs.thumbnail
+  const thumbnail = thumbnails.find(Element => {
     return Element.uuid == ownProps.uuid
   })
   if (thumbnail === null) this.props.fetchThumbnail(ownProps.uuid);

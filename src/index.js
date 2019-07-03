@@ -45,6 +45,7 @@ import SystemAlert from './components/system/SystemAlert';
 import Tabs from './components/tabs/Tabs';
 import TaskList from './components/task/TaskList';
 import ToolTip from './components/tooltip/ToolTip';
+import Thumbnail from './components/thumbnail/Thumbnail'
 import withLocalisation, { setLocaleMessages } from './components/localization/withLocalisation';
 
 import patientObjByEncounterTypeAndObsFilter from './domain/patient/filters/patientObjByEncounterTypeAndObsFilter';
@@ -64,6 +65,7 @@ import { patientIdentifierTypesActions, patientIdentifierTypesSagas } from './fe
 import { PATIENT_SEARCH_TYPES, patientSearchActions, patientSearchSagas } from './features/search/';
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { systemActions, systemWatcherSaga } from './features/system';
+import { thumbnailActions, openmrsThumbnailSagas, THUMBNAIL_TYPES } from './features/thumbnail'
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 
 import {
@@ -87,6 +89,7 @@ import patientRest from './rest/patientRest';
 import providerRest from './rest/providerRest';
 import reportingRest from './rest/reportingRest';
 import sessionRest from './rest/sessionRest';
+import thumbnailRest from './rest/thumbnailRest'
 import visitRest from './rest/visitRest';
 
 
@@ -108,7 +111,7 @@ fontAwesomeLibrary.add(
   faPencilAlt
 );
 
-const sagas = function*() {
+const sagas = function* () {
   yield all([
     loginSagas(),
     sessionSagas(),
@@ -120,7 +123,8 @@ const sagas = function*() {
     conceptSagas(),
     locationSagas(),
     patientIdentifierTypesSagas(),
-    globalPropertySagas()
+    globalPropertySagas(),
+    openmrsThumbnailSagas()
   ]);
 };
 
@@ -174,6 +178,7 @@ module.exports = {
   Tabs,
   TaskList,
   ToolTip,
+  Thumbnail,
   withLocalisation,
 
   patientObjByEncounterTypeAndObsFilter,
@@ -201,6 +206,8 @@ module.exports = {
   SESSION_TYPES,
   sessionActions,
   systemActions,
+  THUMBNAIL_TYPES,
+  thumbnailActions,
   VISIT_TYPES,
   visitActions,
 
@@ -214,6 +221,7 @@ module.exports = {
   providerRest,
   reportingRest,
   sessionRest,
+  thumbnailRest,
   visitRest,
 
   axiosInstance,

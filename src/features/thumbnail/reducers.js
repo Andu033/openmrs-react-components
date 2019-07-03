@@ -1,6 +1,10 @@
 import THUMBNAIL_TYPES from './types'
 
-export default (state = {}, action) => {
+const initialState = {
+  thumbnails: []
+};
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case THUMBNAIL_TYPES.UPDATE_SUCCEEDED:
       return state.thumbnails.map(thumbnail =>

@@ -40,11 +40,10 @@ function* deleteThumbnail(action) {
 }
 
 function* thumbnailSagas() {
-  yield all([
-    takeEvery(THUBNAIL_TYPES.FETCH_REQUESTED, fetchThumbnail),
-    takeEvery(THUBNAIL_TYPES.UPDATE_REQUESTED, updateThumbnail),
-    takeEvery(THUBNAIL_TYPES.DELETE_REQUESTED, deleteThumbnail)
-  ]);
+  yield takeEvery(THUBNAIL_TYPES.FETCH_REQUESTED, fetchThumbnail)
+  yield takeEvery(THUBNAIL_TYPES.UPDATE_REQUESTED, updateThumbnail)
+  yield takeEvery(THUBNAIL_TYPES.DELETE_REQUESTED, deleteThumbnail)
+
 }
 
 export default thumbnailSagas;

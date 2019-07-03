@@ -3,7 +3,7 @@ import { sessionReducers } from './features/session';
 import { loginReducers } from './features/login';
 import { headerReducers } from './features/header';
 import { patientsReducer } from './features/patient';
-import { thumbnailReducers, getThumbnails } from './features/thumbnail'
+import { thumbnailReducers } from './features/thumbnail';
 import { patientSearchReducers } from './features/search';
 import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';

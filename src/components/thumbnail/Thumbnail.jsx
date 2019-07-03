@@ -31,6 +31,9 @@ class Thumbnail extends Component {
     this.setState({ clicked: true })
     this.setState({ hightlight: false })
   }
+  componentDidMount() {
+    this.props.fetchThumbnail(thumbnailActions.fetchThumbnailRequested(this.props.uuid))
+  }
   render() {
     return (
       <div>
@@ -55,7 +58,7 @@ class Thumbnail extends Component {
               className={`${
                 this.state.hightlight ? 'ThumbnailTextHover' : 'ThumbnailText'
                 }`}
-            />
+            >{this.props.comment}</p>
           </div>
         ) : (
             <div>
@@ -83,7 +86,7 @@ function mapStateToProps(state, ownProps) {
   const thumbnail = thumbnails.find(Element => {
     return Element.uuid == ownProps.uuid
   })
-  if (thumbnail === null) this.props.fetchThumbnail(ownProps.uuid);
+  if (thumbnail === undefined) return {};
   else {
     const { comment, links, datetime } = thumbnail;
     return { comment, links, datetime }
@@ -97,4 +100,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, null)(Thumbnail)
+export default connect(mapStateToProps, mapDispatchToProps)(Thumbnail)

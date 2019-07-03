@@ -13,9 +13,11 @@ const api = {
 
   getAttachment: uuid =>
     axiosInstance.get(`attachment/${uuid}`).then(response => {
+
       if (response.status !== 200) {
         throw response
       } else {
+        console.log(response)
         return response.data
       }
     }),

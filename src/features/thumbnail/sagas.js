@@ -7,8 +7,10 @@ import thumbnailRest from "../../rest/thumbnailRest";
 
 function* fetchThumbnail(action) {
 
+
   try {
-    const thumbnail = yield call(thumbnailRest.getAttachment, action.uuid)
+    console.log(action.uuid)
+    const thumbnail = yield call(thumbnailRest.getAttachment, action.uuid.uuid)
     yield put(thumbnailActions.fetchThumbnailSucceeded(thumbnail));
   }
   catch (e) {

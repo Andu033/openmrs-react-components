@@ -1,17 +1,32 @@
-import { call, put, takeEvery, all } from "redux-saga/effects";
-
+import { call, put, takeEvery, select } from "redux-saga/effects";
+import { checkMIME, arrayBufferToBase64 } from "./utils"
 import THUBNAIL_TYPES from "./types";
 import thumbnailActions from "./actions";
-// import { selectors } from "../../store";
+import { selectors } from "../../store";
 import thumbnailRest from "../../rest/thumbnailRest";
+import { utils } from "redux-saga";
+import galleryRest from "../../rest/galleryRest";
 
 function* fetchThumbnail(action) {
 
-
   try {
-    console.log(action.uuid)
+
     const thumbnail = yield call(thumbnailRest.getAttachment, action.uuid.uuid)
-    yield put(thumbnailActions.fetchThumbnailSucceeded(thumbnail));
+    var thumbnails = yield select(selectors.getThumbnails);
+
+    thumbnails = thumbnails.filter(p => (p.uuid === thumbnail.uuid && p.dateTime === thumbnail.dateTime) ? true : false)
+
+    if (thumbnails.length === 0) {
+      const buffer = yield call(thumbnailRest.getAttachmentBytes, action.uuid.uuid)
+      const res = yield arrayBufferToBase64(buffer)
+      yield thumbnail.data = res
+
+
+      console.log("fetched again");
+
+      yield put(thumbnailActions.fetchThumbnailSucceeded(thumbnail));
+    }
+    else console.log("already there")
   }
   catch (e) {
     yield put(thumbnailActions.fetchThumbnailFailed(e.message));

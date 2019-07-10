@@ -16,6 +16,7 @@ import encountersByEncounterTypeFilter from './domain/encounter/filters/encounte
 import Errors from './components/errors/Errors';
 import FieldInput from './components/widgets/FieldInput';
 import FormContext from './components/form/FormContext';
+import Gallery from './components/thumbnail/Gallery'
 import Head from './components/header/Head';
 import Header from './components/header/Header';
 import HeaderAlt from './components/header/HeaderAlt';
@@ -66,6 +67,8 @@ import { PATIENT_SEARCH_TYPES, patientSearchActions, patientSearchSagas } from '
 import { SESSION_TYPES, sessionSagas, sessionActions } from './features/session/';
 import { systemActions, systemWatcherSaga } from './features/system';
 import { thumbnailActions, openmrsThumbnailSagas, THUMBNAIL_TYPES } from './features/thumbnail'
+import { galleryActions, openmrsGallerySagas, GALLERY_TYPES } from './features/gallery'
+
 import { VISIT_TYPES, visitActions, visitSagas } from './features/visit';
 
 import {
@@ -81,6 +84,7 @@ import { library as fontAwesomeLibrary } from '@fortawesome/fontawesome-svg-core
 
 import conceptRest from './rest/conceptRest';
 import encounterRest from './rest/encounterRest';
+import galleryRest from './rest/galleryRest'
 import locationRest from './rest/locationRest';
 import loginRest from './rest/loginRest';
 import orderRest from './rest/orderRest';
@@ -124,7 +128,8 @@ const sagas = function* () {
     locationSagas(),
     patientIdentifierTypesSagas(),
     globalPropertySagas(),
-    openmrsThumbnailSagas()
+    openmrsThumbnailSagas(),
+    openmrsGallerySagas()
   ]);
 };
 
@@ -147,6 +152,7 @@ module.exports = {
   Errors,
   FieldInput,
   FormContext,
+  Gallery,
   Head,
   Header,
   HeaderAlt,
@@ -191,6 +197,8 @@ module.exports = {
   formValidations,
   formUtil,
   FORM_STATES,
+  GALLERY_TYPES,
+  galleryActions,
   GRID_TYPES,
   gridActions,
   globalPropertyActions,
@@ -213,6 +221,7 @@ module.exports = {
 
   conceptRest,
   encounterRest,
+  galleryRest,
   locationRest,
   loginRest,
   orderRest,

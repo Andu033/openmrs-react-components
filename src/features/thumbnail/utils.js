@@ -29,6 +29,18 @@ const getMime = (signature) => {
 
 // }
 
+export const arrayBufferToBase64 = (buffer) => {
+  var binary = '';
+  var bytes = buffer;
+  var len = bytes.byteLength;
+  for (var i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+
+  }
+  console.log(bytes.byteLength)
+  return window.btoa(binary);
+}
+
 export const checkMIME = (file) => {
   var fileReader = new FileReader()
   fileReader.onloadend = (e) => {

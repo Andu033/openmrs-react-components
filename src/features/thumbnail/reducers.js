@@ -15,9 +15,27 @@ export default (state = initialState, action) => {
 
     case THUMBNAIL_TYPES.FETCH_SUCCEEDED:
       {
-        state.thumbnails.push(action.thumbnail);
+        const thumbnail = state.thumbnails.find((element) => {
+          return element.uuid === action.thumbnail.uuid
+        });
+
+        if (thumbnail === undefined)
+          state.thumbnails.push(action.thumbnail);
+
         return state;
       }
+
+    // case THUMBNAIL_TYPES.FETCH_CACHED:
+    //   {
+    //     state.thumbnails.forEach(thumbnail => {
+    //       if (thumbnail.uuid === action.thumbnail.uuid && thumbnail.dateTime === action.thumbnail.dateTime) {
+    //         console.log("let throw")
+    //         throw 'the attachment is already there'
+    //       }
+    //       else { console.log("not now") }
+    //     });
+    //     return state;
+    //   }
 
     case THUMBNAIL_TYPES.DELETE_SUCCEEDED:
       for (var i = 0; i < state.thumbnails.length; i++) {

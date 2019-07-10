@@ -3,7 +3,8 @@ import { sessionReducers } from './features/session';
 import { loginReducers } from './features/login';
 import { headerReducers } from './features/header';
 import { patientsReducer } from './features/patient';
-import { thumbnailReducers } from './features/thumbnail';
+import { thumbnailReducers, getThumbnails } from './features/thumbnail';
+import { galleryReducers } from './features/gallery'
 import { patientSearchReducers } from './features/search';
 import { errorsReducers } from './features/errors';
 import { formReducers } from './features/form';
@@ -26,6 +27,7 @@ export const reducers = combineReducers({
   patients: patientsReducer,
   patientSearch: patientSearchReducers,
   thumbnail: thumbnailReducers,
+  gallery: galleryReducers,
   errors: errorsReducers,
   form: formReducers,
   metadata: combineReducers({
@@ -37,12 +39,14 @@ export const reducers = combineReducers({
 });
 
 export const selectors = {
-  getThumbnails: (state) => {
-    return getThumbnails(state.openmrs.thumbnail)
-  },
+
 
   getPatientStore: (state) => {
     return getPatients(state.openmrs.patients);
+  },
+
+  getThumbnails: (state) => {
+    return getThumbnails(state.openmrs.thumbnail)
   },
 
   getSelectedPatient: (state) => {

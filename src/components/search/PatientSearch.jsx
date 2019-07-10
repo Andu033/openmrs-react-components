@@ -7,7 +7,6 @@ import { DEFAULT_PATIENT_REP } from "../../domain/patient/constants";
 import patientUtil from '../../domain/patient/patientUtil';
 import CardList from "../cardList/CardList";
 import PatientCard from '../patient/PatientCard';
-import Thumbnail from '../thumbnail/Thumbnail'
 
 
 // TODO: do we want a way override the default actions to clear the selected patient and add the patient to the store?

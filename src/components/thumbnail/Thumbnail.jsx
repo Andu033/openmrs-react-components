@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import thumbnailActions from '../../features/thumbnail/actions'
 import { throws } from 'assert';
+import moment from 'moment'
 
 class Thumbnail extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Thumbnail extends Component {
     this.onMouseOver = this.onMouseOver.bind(this)
     this.onMouseLeave = this.onMouseLeave.bind(this)
   }
+
   onMouseOver(evt) {
     this.setState({ hightlight: true })
   }
@@ -24,27 +26,32 @@ class Thumbnail extends Component {
   onMouseLeave() {
     this.setState({ hightlight: false })
   }
+
   handleChange = event => {
     this.setState({ comment: event.target.value })
   }
+
   handleClick = () => {
     this.setState({ clicked: true })
     this.setState({ hightlight: false })
   }
-  componentDidMount() {
+
+  componentWillMount() {
     this.props.fetchThumbnail(thumbnailActions.fetchThumbnailRequested(this.props.uuid))
+    console.log(this.props.uuid)
   }
+
   render() {
     return (
       <div>
         <p>
-          <time datetime={this.props.datetime}>this.props.datetime</time>
+          <time datetime={this.props.dateTime}>{this.props.dateTime}</time>
         </p>
         <div className='Thumbnail'>
           <img
             className='Image'
-            src='https://i.ytimg.com/vi/szmS_M-BMls/maxresdefault.jpg'
-            alt='Paris'
+            src={(this.props.data != undefined) ? `data:image/jpeg;charset=UTF-8;base64,${this.props.data}` : ''}
+            alt={this.props.comment}
           />
         </div>
         {!this.state.clicked ? (
@@ -86,10 +93,9 @@ function mapStateToProps(state, ownProps) {
   const thumbnail = thumbnails.find(Element => {
     return Element.uuid == ownProps.uuid
   })
-  if (thumbnail === undefined) return {};
-  else {
-    const { comment, links, datetime } = thumbnail;
-    return { comment, links, datetime }
+  if (thumbnail !== undefined) {
+    const { comment, data, dateTime } = thumbnail;
+    return { comment, data, dateTime }
 
   }
 }

@@ -9,6 +9,5 @@ export default types('thumbnail', [
   'DELETE_FAILED',
   'FETCH_REQUESTED',
   'FETCH_SUCCEEDED',
-  'FETCH_FAILED'
-
+  'FETCH_FAILED',
 ]);

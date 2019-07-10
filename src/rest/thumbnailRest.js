@@ -6,21 +6,32 @@ const api = {
       .delete(`attachment/${uuid}?purge=true`)
       .then(response => {
         if (response.status !== 200) {
-          throw response
+          throw response.data
         }
       })
   },
 
   getAttachment: uuid =>
     axiosInstance.get(`attachment/${uuid}`).then(response => {
-
       if (response.status !== 200) {
         throw response
       } else {
-        console.log(response)
         return response.data
       }
-    }),
+    })
+  ,
+
+  getAttachmentBytes: uuid =>
+    axiosInstance.get(`attachment/${uuid}/bytes`, {
+      responseType: 'arraybuffer'
+    }).then(response => {
+      if (response.status !== 200) {
+        throw response
+      } else {
+        return new Buffer(response.data, 'binary')
+      }
+    })
+  ,
 
   updateAttachment: (uuid, comment) =>
     axiosInstance.post(`attachment/`).then(response => {

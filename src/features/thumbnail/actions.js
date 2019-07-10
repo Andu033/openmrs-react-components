@@ -58,5 +58,4 @@ export default {
   fetchThumbnailRequested,
   fetchThumbnailFailed,
   fetchThumbnailSucceeded
-
 }

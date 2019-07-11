@@ -20,9 +20,9 @@ function* fetchThumbnail(action) {
       const buffer = yield call(thumbnailRest.getAttachmentBytes, action.uuid.uuid)
       const res = yield arrayBufferToBase64(buffer)
       yield thumbnail.data = res
+      yield thumbnail.MIMEType = checkMIME(buffer);
 
 
-      console.log("fetched again");
 
       yield put(thumbnailActions.fetchThumbnailSucceeded(thumbnail));
     }

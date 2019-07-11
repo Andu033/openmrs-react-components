@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import thumbnailActions from '../../features/thumbnail/actions'
 import { throws } from 'assert';
 import moment from 'moment'
-
+import * as url from '../../../assets/images/trash-icon.png';
 class Thumbnail extends Component {
   constructor(props) {
     super(props)
@@ -35,24 +35,38 @@ class Thumbnail extends Component {
     this.setState({ clicked: true })
     this.setState({ hightlight: false })
   }
-
+  deleteClick = () => {
+    this.props.deleteThumbnail(this.props.uuid)
+  }
   componentWillMount() {
     this.props.fetchThumbnail(thumbnailActions.fetchThumbnailRequested(this.props.uuid))
-    console.log(this.props.uuid)
+    console.log(this.props.type)
   }
 
   render() {
     return (
       <div>
+
         <p>
           <time datetime={this.props.dateTime}>{this.props.dateTime}</time>
         </p>
-        <div className='Thumbnail'>
+
+        <div className='Thumbnail container'>
+          {this.state.clicked ? (<div class="overlay">
+            <img
+              src={url}
+              alt="asda"
+            />
+          </div>) : null}
+
+
           <img
             className='Image'
             src={(this.props.data != undefined) ? `data:image/jpeg;charset=UTF-8;base64,${this.props.data}` : ''}
             alt={this.props.comment}
           />
+
+
         </div>
         {!this.state.clicked ? (
           <div
@@ -94,6 +108,9 @@ function mapStateToProps(state, ownProps) {
     return Element.uuid == ownProps.uuid
   })
   if (thumbnail !== undefined) {
+    var type = 'unknown';
+    type = (thumbnail.MIMEType.startsWith('image')) ? 'image' : 'unknown'
+    type = (thumbnail.MIMEType.endsWith('pdf')) ? 'pdf' : 'unknown'
     const { comment, data, dateTime } = thumbnail;
     return { comment, data, dateTime }
 
@@ -104,6 +121,12 @@ const mapDispatchToProps = dispatch => ({
   fetchThumbnail: uuid => {
     dispatch(thumbnailActions.fetchThumbnailRequested(uuid));
   },
+  updateThumbnail: comment => {
+    dispatch(thumbnailActions.updateThumbnailRequested(comment));
+  },
+  deleteThumbnail: uuid => {
+    dispatch(thumbnailActions.deleteThumbnailRequested(uuid));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thumbnail)

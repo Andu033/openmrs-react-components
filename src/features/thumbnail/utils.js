@@ -37,22 +37,19 @@ export const arrayBufferToBase64 = (buffer) => {
     binary += String.fromCharCode(bytes[i]);
 
   }
-  console.log(bytes.byteLength)
   return window.btoa(binary);
 }
 
 export const checkMIME = (file) => {
-  var fileReader = new FileReader()
-  fileReader.onloadend = (e) => {
-    var arr = new Uint8Array(e.target.result).subarray(0, 4)
-    var header = ''
 
-    for (var i = 0; i < arr.length; i++) {
-      header += arr[i].toString(16)
-    }
-    return getMime(header);
+  var arr = file.subarray(0, 4)
+  var header = ''
+
+  for (var i = 0; i < arr.length; i++) {
+    header += arr[i].toString(16)
   }
+  console.log(header)
 
-  fileReader.readAsArrayBuffer(file)
+  return getMime(header);
 
 }

@@ -40,7 +40,6 @@ class Thumbnail extends Component {
   }
   componentWillMount() {
     this.props.fetchThumbnail(thumbnailActions.fetchThumbnailRequested(this.props.uuid))
-    console.log(this.props.type)
   }
 
   render() {
@@ -48,7 +47,7 @@ class Thumbnail extends Component {
       <div>
 
         <p>
-          <time datetime={this.props.dateTime}>{this.props.dateTime}</time>
+          <time datetime={this.props.dateTime} className='dateText'>{moment(this.props.dateTime, "YYYY-MM-DD-kk-mm-ss").fromNow()}</time>
         </p>
 
         <div className='Thumbnail container'>
@@ -80,6 +79,7 @@ class Thumbnail extends Component {
                 this.state.hightlight ? 'ThumbnailTextHover' : 'ThumbnailText'
                 }`}
             >{this.props.comment}</p>
+            <i class="icon-trash"></i>
           </div>
         ) : (
             <div>
@@ -115,6 +115,7 @@ function mapStateToProps(state, ownProps) {
     return { comment, data, dateTime }
 
   }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => ({

@@ -13,7 +13,7 @@ class Gallery extends Component {
 
   render() {
     return (
-      <div>
+      <div className="rowC">
         {(this.props.attachments !== undefined) ? this.props.attachments.map(item => <Thumbnail uuid={item.uuid} />) : <p>Wait</p>}
       </div>
     )

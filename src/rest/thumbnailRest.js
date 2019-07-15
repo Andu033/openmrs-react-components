@@ -16,6 +16,8 @@ const api = {
       if (response.status !== 200) {
         throw response
       } else {
+        console.log(response.data)
+        console.log("primul get")
         return response.data
       }
     })
@@ -28,6 +30,9 @@ const api = {
       if (response.status !== 200) {
         throw response
       } else {
+        console.log(new Buffer(response.data, 'binary'))
+        console.log("response")
+
         return new Buffer(response.data, 'binary')
       }
     })

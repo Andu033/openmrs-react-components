@@ -48,7 +48,6 @@ export const checkMIME = (file) => {
   for (var i = 0; i < arr.length; i++) {
     header += arr[i].toString(16)
   }
-  console.log(header)
 
   return getMime(header);
 

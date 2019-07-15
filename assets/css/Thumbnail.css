@@ -1,5 +1,6 @@
 .Thumbnail {
-  display:flex;
+  /* display:flex;
+  flex-direction:row;
   height: 110px;
   width: 130px;
   background-color: rgb(255, 255, 255);
@@ -11,7 +12,27 @@
   flex-direction: column;
   font-size: 16px;
   cursor: pointer;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px; */
+  position: relative;
+height: 110px;
+border: 3px solid #F4F4F4;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+padding: 5px;
+margin: 10px 10px 10px 10px;
+}
+.dateText{
+  font-size: 75%;
+  font-weight: bold;
+  color: #888;
+}
+.rowC{
+  display:flex; 
+  flex-direction:row;
+  border: 1px solid #EEE;
+background-color: #F9F9F9;
+margin: 15px 0 10px 0;
 }
 .Name {
   height: 25px;
@@ -22,7 +43,7 @@
   height: auto;
   width: auto;
   max-width: 120px;
-  max-height: 180px;
+  max-height: 90px;
   border-radius: 6px;
 
 }
@@ -46,13 +67,14 @@
   background-color: rgb(238, 238, 238);
 }
 .ThumbnailText{
-  color: cornflowerblue;
+  font-family: "OpenSans", Arial, sans-serif;
+  color: #363463;
   font-size: 16px;
 }
 .ThumbnailTextHover{
   color: rgb(245, 155, 52);
-  font-size: 18px;
-  font-weight: 900;
+  font-size: 17px;
+  font-weight: 500;
 }
 .InputName{
   width: 120px;

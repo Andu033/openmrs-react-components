@@ -1,11 +1,11 @@
 const jpgAttachment = {
-  "uuid": "4ae5cca3-0e2f-4ab5-9020-79116b2932c6",
-  "dateTime": "2019-07-11T11:33:50.000+0300",
+  "uuid": "some_uuid",
+  "dateTime": "some_date",
   "comment": "photo",
   "links": [
     {
       "rel": "self",
-      "uri": "http://localhost:8080//openmrs/ws/rest/v1/attachment/4ae5cca3-0e2f-4ab5-9020-79116b2932c6"
+      "uri": "link"
     }
   ],
   "resourceVersion": "1.8"
@@ -15,21 +15,23 @@ const jpgDataArrayBuffer = {
 }
 
 const api = {
-  deleteAttachment: () => {
+  deleteAttachment: (uuid) => {
     return "ok"
   }
   ,
-  getAttachment: () => {
-    return jpgAttachment
+  getAttachment: (uuid) => {
+    if (uuid === "some_uuid")
+      return jpgAttachment
+    else throw "error"
   }
   ,
 
-  getAttachmentBytes: () => {
+  getAttachmentBytes: (uuid) => {
     return jpgDataArrayBuffer
   }
   ,
 
-  updateAttachment: () => {
+  updateAttachment: (uuid, caption) => {
     return 'ok'
   }
 }

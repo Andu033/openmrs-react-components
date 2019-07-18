@@ -1,6 +1,6 @@
 import THUMBNAIL_TYPES from './types'
 
-const initialState = {
+export const initialState = {
   thumbnails: []
 };
 

@@ -16,6 +16,7 @@ const api = {
       if (response.status !== 200) {
         throw response
       } else {
+
         console.log(response.data)
         console.log("primul get")
         return response.data
@@ -30,10 +31,14 @@ const api = {
       if (response.status !== 200) {
         throw response
       } else {
-        console.log(new Buffer(response.data, 'binary'))
+        var meta = {};
+        meta.contentFamily = response.headers['content-type'].split('/')[0]
+        meta.ext = '.' + response.headers['content-type'].split('/')[1].split(';')[0]
+        meta.MIMEType = response.headers['content-type']
+        console.log(meta)
         console.log("response")
 
-        return new Buffer(response.data, 'binary')
+        return { buffer: new Buffer(response.data, 'binary'), meta: meta }
       }
     })
   ,

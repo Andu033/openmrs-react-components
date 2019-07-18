@@ -17,10 +17,15 @@ function* fetchThumbnail(action) {
     thumbnails = thumbnails.filter(p => (p.uuid === thumbnail.uuid && p.dateTime === thumbnail.dateTime) ? true : false)
 
     if (thumbnails.length === 0) {
-      const buffer = yield call(thumbnailRest.getAttachmentBytes, action.uuid.uuid)
-      const res = yield arrayBufferToBase64(buffer)
+      const { buffer, meta } = yield call(thumbnailRest.getAttachmentBytes, action.uuid.uuid)
+      let res;
+      (meta.contentFamily === 'image') ?
+        res = yield arrayBufferToBase64(buffer) : res = buffer
       yield thumbnail.data = res
-      yield thumbnail.MIMEType = checkMIME(buffer);
+      yield thumbnail.ext = meta.ext
+      yield thumbnail.contentFamily = meta.contentFamily
+      yield thumbnail.MIMEType = meta.MIMEType
+
 
 
 

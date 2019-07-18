@@ -9,7 +9,7 @@ describe('patient search reducers', () => {
 
   it('should return patient search results', () => {
 
-    const results =  [
+    const results = [
       {
         "uuid": "some_uuid"
       },
@@ -45,14 +45,16 @@ describe('patient search reducers', () => {
   it('should clear patient search results', () => {
 
     expect(reducers(
-      { results: [
-        {
-          "uuid": "some_uuid"
-        },
-        {
-          "uuid": "another_uuid"
-        }
-      ] }, {
+      {
+        results: [
+          {
+            "uuid": "some_uuid"
+          },
+          {
+            "uuid": "another_uuid"
+          }
+        ]
+      }, {
         type: PATIENT_SEARCH_TYPES.CLEAR_SEARCH
       })).toEqual({ isUpdating: false });
 

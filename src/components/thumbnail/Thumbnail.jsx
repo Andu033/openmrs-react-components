@@ -5,14 +5,17 @@ import PropTypes from 'prop-types'
 import thumbnailActions from '../../features/thumbnail/actions'
 import { throws } from 'assert';
 import moment from 'moment'
-import * as url from '../../../assets/images/trash-icon.png';
+import fontawesome from '@fortawesome/fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, fafile } from '@fortawesome/fontawesome-free-solid'
 class Thumbnail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       hightlight: false,
       clicked: false,
-      comment: ''
+      comment: '',
+      isOpen: false
     }
 
     this.onMouseOver = this.onMouseOver.bind(this)
@@ -35,6 +38,18 @@ class Thumbnail extends Component {
     this.setState({ clicked: true })
     this.setState({ hightlight: false })
   }
+
+  openPdf = () => {
+    var blob = new Blob([this.props.data], { type: "application/pdf" });
+    var blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl)
+  }
+  openOther = () => {
+    var blob = new Blob([this.props.data], { type: "application/pdf" });
+    var blobUrl = URL.createObjectURL(blob);
+    window.open(blobUrl)
+  }
+
   deleteClick = () => {
     this.props.deleteThumbnail(this.props.uuid)
   }
@@ -42,28 +57,69 @@ class Thumbnail extends Component {
     this.props.fetchThumbnail(thumbnailActions.fetchThumbnailRequested(this.props.uuid))
   }
 
+  handleShowDialog = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  renderContent(param) {
+    switch (param) {
+      case 'image':
+        return <img onClick={this.handleShowDialog}
+          className='Image'
+          src={(this.props.data != undefined) ? `data:image/jpeg;charset=UTF-8;base64,${this.props.data}` : ''}
+          alt={this.props.comment}
+        />;
+      case 'application':
+        return <div onClick={() => { this.openPdf() }} >
+          <FontAwesomeIcon
+            className='icon'
+            icon="file"
+            size="4x"
+          />
+          <br />
+          <span>PDF</span></div >;
+      default:
+        return (<div>
+          <FontAwesomeIcon onClick={() => this.props.deleteThumbnail(this.props.uuid)}
+            className='icon'
+            icon="file"
+            size="4x"
+          />
+          <span>NOTPDF</span></div>);
+    }
+  }
+
   render() {
+    {
+      fontawesome.library.add(faTrash)
+    }
     return (
       <div>
-
+        {(this.state.isOpen) ?
+          <div className='popup' onClick={this.handleShowDialog}>
+            <img className='previewImage'
+              src={`data:image/jpeg;charset=UTF-8;base64,${this.props.data}`}
+            />
+            <p>{this.props.comment}</p>
+          </div>
+          : null
+        }
         <p>
           <time datetime={this.props.dateTime} className='dateText'>{moment(this.props.dateTime, "YYYY-MM-DD-kk-mm-ss").fromNow()}</time>
         </p>
 
         <div className='Thumbnail container'>
+          {this.renderContent(this.props.contentFamily)
+          }
+          {console.log("--------------------------" + this.props.contentFamily)}
           {this.state.clicked ? (<div class="overlay">
-            <img
-              src={url}
-              alt="asda"
+            <FontAwesomeIcon onClick={() => this.props.deleteThumbnail(this.props.uuid)}
+              className='icon'
+              icon="trash"
+              size="4x"
             />
           </div>) : null}
 
-
-          <img
-            className='Image'
-            src={(this.props.data != undefined) ? `data:image/jpeg;charset=UTF-8;base64,${this.props.data}` : ''}
-            alt={this.props.comment}
-          />
 
 
         </div>
@@ -79,7 +135,7 @@ class Thumbnail extends Component {
                 this.state.hightlight ? 'ThumbnailTextHover' : 'ThumbnailText'
                 }`}
             >{this.props.comment}</p>
-            <i class="icon-trash"></i>
+
           </div>
         ) : (
             <div>
@@ -90,8 +146,18 @@ class Thumbnail extends Component {
                 className='InputName'
               />
               <br />
-              <button onClick={() => this.setState({ clicked: false })}>Y</button>
-              <button onClick={() => this.setState({ clicked: false })}>X</button>
+              <FontAwesomeIcon onClick={() => this.setState({ clicked: false })}
+                className='icon'
+                icon="times"
+              />
+              <FontAwesomeIcon onClick={() => {
+                this.setState({ clicked: false })
+                this.props.updateThumbnail(this.props.uuid, this.state.comment)
+              }}
+                className='icon'
+                icon="check"
+              />
+
             </div>
           )}
       </div>
@@ -107,12 +173,12 @@ function mapStateToProps(state, ownProps) {
   const thumbnail = thumbnails.find(Element => {
     return Element.uuid == ownProps.uuid
   })
+  console.log(thumbnail)
+  console.log('thumbnail')
+
   if (thumbnail !== undefined) {
-    var type = 'unknown';
-    type = (thumbnail.MIMEType.startsWith('image')) ? 'image' : 'unknown'
-    type = (thumbnail.MIMEType.endsWith('pdf')) ? 'pdf' : 'unknown'
-    const { comment, data, dateTime } = thumbnail;
-    return { comment, data, dateTime }
+    const { comment, data, dateTime, ext, contentFamily, MIMEType } = thumbnail;
+    return { comment, data, dateTime, ext, contentFamily, MIMEType }
 
   }
   return {}

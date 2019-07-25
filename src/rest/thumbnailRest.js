@@ -5,8 +5,9 @@ const api = {
     return axiosInstance
       .delete(`attachment/${uuid}?purge=true`)
       .then(response => {
-        if (response.status !== 200) {
-          throw response.data
+        if (Math.floor(response.status / 100) !== 2) {
+          throw response.status
+
         }
       })
   },

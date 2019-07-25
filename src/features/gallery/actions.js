@@ -17,10 +17,16 @@ const fetchGallerySucceded = (attachments, uuid) => ({
   patientUuid: uuid
 })
 
+const deleteAttachment = (uuid) => ({
+  type: GALLERY_TYPES.DELETE_ATTACHMENT,
+  uuid: uuid
+})
+
 
 export default {
   fetchGalleryFailed,
   fetchGalleryRequested,
-  fetchGallerySucceded
+  fetchGallerySucceded,
+  deleteAttachment
 
 }

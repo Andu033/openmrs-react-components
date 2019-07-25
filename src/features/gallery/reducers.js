@@ -5,6 +5,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+
   switch (action.type) {
     case GALLERY_TYPES.FETCH_SUCCEEDED:
       {
@@ -18,6 +19,15 @@ export default (state = initialState, action) => {
           attachments: action.attachments,
           patientUuid: action.patientUuid
         })
+        return state;
+      }
+
+    case GALLERY_TYPES.DELETE_ATTACHMENT:
+      {
+        console.log("-------------------------asdsadasdasdas-----------------------------")
+        for (var i = 0; i < state.galleries.length; i++) {
+          state.galleries[i].attachments = state.galleries[i].attachments.filter(el => el.uuid != action.uuid)
+        }
         return state;
       }
 

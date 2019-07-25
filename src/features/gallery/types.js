@@ -4,5 +4,6 @@ export default types('gallery', [
   'FETCH_REQUESTED',
   'FETCH_SUCCEEDED',
   'FETCH_FAILED',
+  'DELETE_ATTACHMENT'
 
 ]);

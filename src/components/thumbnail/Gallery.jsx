@@ -14,12 +14,12 @@ class Gallery extends Component {
   render() {
     return (
       <div className="rowC">
-        {(this.props.attachments !== undefined) ? this.props.attachments.map(item => <Thumbnail uuid={item.uuid} />) : <p>Wait</p>}
+        {(this.props.attachments !== undefined) ? this.props.attachments.map((item, index) => <Thumbnail key={index} uuid={item.uuid} />) : <p>Wait</p>}
       </div>
     )
   }
 }
-Gallery.PropTypes = {
+Gallery.propTypes = {
   uuid: PropTypes.string
 }
 
@@ -33,6 +33,7 @@ function mapStateToProps(state, ownProps) {
     return { attachments }
 
   }
+  else return {}
 }
 
 const mapDispatchToProps = dispatch => ({

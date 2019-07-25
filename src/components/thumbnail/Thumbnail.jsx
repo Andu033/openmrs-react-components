@@ -7,7 +7,7 @@ import { throws } from 'assert';
 import moment from 'moment'
 import fontawesome from '@fortawesome/fontawesome'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, fafile } from '@fortawesome/fontawesome-free-solid'
+import { faFile, faTrashAlt, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 class Thumbnail extends Component {
   constructor(props) {
     super(props)
@@ -73,8 +73,8 @@ class Thumbnail extends Component {
         return <div onClick={() => { this.openPdf() }} >
           <FontAwesomeIcon
             className='icon'
-            icon="file"
-            size="4x"
+            icon="file-pdf"
+            size="6x"
           />
           <br />
           <span>PDF</span></div >;
@@ -83,15 +83,16 @@ class Thumbnail extends Component {
           <FontAwesomeIcon onClick={() => this.props.deleteThumbnail(this.props.uuid)}
             className='icon'
             icon="file"
-            size="4x"
+            size="6x"
           />
+          <br />
           <span>NOTPDF</span></div>);
     }
   }
 
   render() {
     {
-      fontawesome.library.add(faTrash)
+      fontawesome.library.add(faFile, faTrashAlt, faFilePdf)
     }
     return (
       <div>
@@ -115,7 +116,7 @@ class Thumbnail extends Component {
           {this.state.clicked ? (<div class="overlay">
             <FontAwesomeIcon onClick={() => this.props.deleteThumbnail(this.props.uuid)}
               className='icon'
-              icon="trash"
+              icon="trash-alt"
               size="4x"
             />
           </div>) : null}
@@ -164,7 +165,7 @@ class Thumbnail extends Component {
     )
   }
 }
-Thumbnail.PropTypes = {
+Thumbnail.propTypes = {
   uuid: PropTypes.string
 }
 

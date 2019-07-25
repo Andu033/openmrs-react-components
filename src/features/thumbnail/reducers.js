@@ -43,6 +43,7 @@ export default (state = initialState, action) => {
           state.thumbnails.splice(i, 1)
           break
         }
+        state.thumbnails = state.thumbnails.filter(el => el.uuid != action.uuid)
         return state
       }
 

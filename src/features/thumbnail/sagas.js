@@ -5,8 +5,7 @@ import thumbnailActions from "./actions";
 import { selectors } from "../../store";
 import thumbnailRest from "../../rest/thumbnailRest";
 import { utils } from "redux-saga";
-import galleryRest from "../../rest/galleryRest";
-
+import { galleryActions } from '../gallery'
 function* fetchThumbnail(action) {
 
   try {
@@ -53,6 +52,7 @@ function* deleteThumbnail(action) {
 
   try {
     yield call(thumbnailRest.deleteAttachment, action.uuid)
+    yield put(galleryActions.deleteAttachment(action.uuid))
     yield put(thumbnailActions.deleteThumbnailSucceeded(action.uuid));
   }
   catch (e) {
